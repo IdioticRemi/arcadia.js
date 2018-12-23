@@ -1,6 +1,6 @@
 {
-  "name": "arcadia.js",
-  "version": "1.0.0",
+  "name": "arcadia.js-unoff",
+  "version": "1.0.1",
   "description": "Module non-officiel de l'API Arcadia.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kizuru/arcadia.js"
+    "url": "https://github.com/Kizuru/arcadia.js-unoff"
   },
   "author": "Kizuru",
   "license": "ISC",

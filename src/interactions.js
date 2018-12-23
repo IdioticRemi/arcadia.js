@@ -41,7 +41,6 @@ module.exports = class {
             if (!name || name === "UwU") return reject(`No endpoint name provided! Valid endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
 
             let endpoint = new Endpoint(this.API_URL, name, url, options);
-            console.log(endpoint.category);
 
             if (!endpoint.category) return reject(`Provided endpoint doesn't exist! Valid endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
             if (endpoint.category !== "texts" && !url || name === "wanted" && !url) return reject(`No URL provided!\n\n${yellow}Please provide a valid URL.`);
