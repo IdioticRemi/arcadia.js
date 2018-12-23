@@ -1,0 +1,24 @@
+{
+  "name": "arcadia.js",
+  "version": "1.0.0",
+  "description": "Module non-officiel de l'API Arcadia.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Arcadia",
+    "API",
+    "Image",
+    "Manipulation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kizuru/arcadia.js"
+  },
+  "author": "Kizuru",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
