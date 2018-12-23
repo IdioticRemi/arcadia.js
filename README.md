@@ -1,6 +1,6 @@
 # Non-Official module for the ArcadiaAPI!
 
-Installation:
+## Installation:
 ```js
 npm install arcadia-api --save
 ```
