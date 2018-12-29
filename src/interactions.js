@@ -23,6 +23,9 @@ class Endpoint {
 module.exports = class {
     constructor(token) {
         this.API_URL = "https://arcadia-api.xyz/api/v1/";
+
+        if (!token) throw (`${red}Looks like you forgot your token! Correct usage is:\n\n${yellow}const ArcadiaAPI = require(\"arcadia-api\");\nconst Arcadia = new ArcadiaAPI(\"token here\");\n${grey}// Your code next ;)${reset}`);
+
         this.TOKEN = token;
 
         this.categories = categories;
@@ -31,19 +34,20 @@ module.exports = class {
         this.filters = this.categories.filters;
         this.texts = this.categories.texts;
         this.others = this.categories.others;
+        this.endpoints = null;
     }
 
     async GET(name, url = null, options = {}) {
         return new Promise(async (resolve, reject) => {
+            this.endpoints = this.endpoints || await this.fetchEndpoints();
             name = name ? name.toLowerCase() : "UwU";
 
-            if (!this.TOKEN) return reject(`Looks like you forgot your token! Correct usage is:\n\n${yellow}const ArcadiaAPI = require(\"arcadia-api\");\nconst Arcadia = new ArcadiaAPI(\"token here\");\n${grey}// Your code next ;)`);
-            if (!name || name === "UwU") return reject(`No endpoint name provided! Valid endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
+            if (!name || name === "UwU") return reject(`No endpoint name provided! Registered endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
 
             let endpoint = new Endpoint(this.API_URL, name, url, options);
 
-            if (!endpoint.category) return reject(`Provided endpoint doesn't exist! Valid endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
-            if (endpoint.category !== "texts" && !url || name === "wanted" && !url) return reject(`No URL provided!\n\n${yellow}Please provide a valid URL.`);
+            if (!this.endpoints.includes(endpoint.name)) return reject(`Provided endpoint doesn't exist! Registered endpoints are:\n\n${Object.keys(this.categories).map(c => `${yellow}${c}: ${green}${this.categories[c].map(e => e)}`).join("\n")}`);
+            if (endpoint.category && endpoint.category !== "texts" && !url || endpoint.category && name === "wanted" && !url) return reject(`No URL provided!\n\n${yellow}Please provide a valid URL.`);
             if (name !== "hypesquad" && options.type && ![0, 1].includes(options.type)) return reject(`Invalid type!\n\n${yellow}\"options.type\" must be either 0 or 1!`);
             if (name === "hypesquad" && options.hype && ![0, 1, 2].includes(options.hype) || options.type && ![0, 1, 2].includes(options.type)) return reject(`Invalid hype type!\n\n${yellow}\"options.hype\" must be either 0, 1 or 2!\nHint: ${green}0=Bravery,1=Balance,2=Brilliance`);
 
